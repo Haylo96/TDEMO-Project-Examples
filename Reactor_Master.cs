@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ public class Reactor_Master : MonoBehaviour
 {
 
     public bool ReactorCollide;
-    bool Power;
+    public bool Power;
     float fog_density = 0.03F;
     float Top_Speed = 0F;
     float Mid_Speed = 0F;
@@ -35,7 +35,7 @@ public class Reactor_Master : MonoBehaviour
 
 
 
-    void IntensitySet()
+    void IntensitySet() //Function to change the light intensity of all reactor lights
     {
 
         
@@ -63,7 +63,7 @@ public class Reactor_Master : MonoBehaviour
 
     }
 
-    void IntensInc()
+    void IntensInc() //Increases the light intensity to the maximum which can be changed
     {
 
         Intensity += Modifier;
@@ -78,7 +78,7 @@ public class Reactor_Master : MonoBehaviour
 
     }
 
-    void IntensDec()
+    void IntensDec() //Decreases the light intensity to the minimum which can be changed
     {
 
         Intensity -= Modifier;
@@ -93,7 +93,7 @@ public class Reactor_Master : MonoBehaviour
 
     }
 
-    private void Emergency_Lighting()
+    private void Emergency_Lighting() //Sets the lighting to increase and then decrease, used while facility is off
     {
 
         if (Positive == true)
@@ -111,7 +111,7 @@ public class Reactor_Master : MonoBehaviour
 
     }
 
-    private void Emergency_Lighting_WindDown()
+    private void Emergency_Lighting_WindDown() //Sets the Emergency lighting to off to transition to the next phase, reactor startup
     {
 
         Min_Intensity = 0F;
@@ -149,7 +149,7 @@ public class Reactor_Master : MonoBehaviour
         }
     }
 
-    private void Green_Light()
+    private void Green_Light() //Sets all lights to Cyan
     {
 
         Light_Colour.Set(0F, 1F, 1F, 1F);
@@ -170,7 +170,7 @@ public class Reactor_Master : MonoBehaviour
 
     }
 
-    private bool Ring_Light_Intensity_Set(int _Ring)
+    private bool Ring_Light_Intensity_Set(int _Ring) //Returns true if lights are at max intensity, if not, increases intensity and returns false
     {
 
         _Ring --;
@@ -216,7 +216,7 @@ public class Reactor_Master : MonoBehaviour
         
     }
 
-    //private void Pitch_Set(GameObject _Object, ref float _Max_Val, ref float _Current_Val)
+    //private void Pitch_Set(GameObject _Object, ref float _Max_Val, ref float _Current_Val)    //WIP code for the sound
     //{
 
         
@@ -255,7 +255,7 @@ public class Reactor_Master : MonoBehaviour
 
     //}
 
-    private bool Laser_Length_Set_Check(int _Ring)
+    private bool Laser_Length_Set_Check(int _Ring) //returns true if the lasers are the max length, if not returns false and increases the length
     {
 
         _Ring -= 1;
@@ -327,7 +327,6 @@ public class Reactor_Master : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -345,9 +344,13 @@ public class Reactor_Master : MonoBehaviour
         Ring_Laser_Length_Small[1] = 0F;
         Ring_Laser_Length_Small[2] = 0F;
 
+        //Fills the arrays with game objecst to change
+
         Low = GameObject.FindGameObjectsWithTag("Pylon_Laser_Low");
         Mid = GameObject.FindGameObjectsWithTag("Pylon_Laser_Mid");
         Top = GameObject.FindGameObjectsWithTag("Pylon_Laser_Top");
+
+        //sets all of the lights to a default
 
         foreach (GameObject Laser in Low)
         {
@@ -388,7 +391,7 @@ public class Reactor_Master : MonoBehaviour
         reac_anim.SetFloat("Core_Speed", Core_Speed);
 
 
-        if (Alarm == true)
+        if (Alarm == true)  //checks if the alarm is on, changes when the lighting is changed to off 
         {
 
             if (Power == false)
